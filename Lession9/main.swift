@@ -14,7 +14,7 @@ import Foundation
  Создай несколько экземпляров и вызови метод.
  */
 class Person {
-    var name: String
+    let name: String
     var age: Int
     
     init(name: String, age: Int) {
@@ -39,8 +39,8 @@ john.sayHello()
  */
 
 class Car {
-   private var model: String
-   private var owner: Person?
+    private let model: String
+    private var owner: Person?
     
     init(model: String) {
         self.model = model
@@ -95,7 +95,7 @@ class Animal {
  Создай несколько собак с разными породами.
  */
 class Dog: Animal {
-    var breed: String
+    let breed: String
     
     init(name: String, breed: String) {
         self.breed = breed
@@ -130,7 +130,7 @@ dog.makeSound()
 
 class Product {
     let name: String
-    let price: Double
+    var price: Double
     
     init(name: String, price: Double) {
         self.name = name
