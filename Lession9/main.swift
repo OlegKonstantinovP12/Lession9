@@ -30,6 +30,7 @@ let jack = Person(name: "Jack", age: 18)
 let john = Person(name: "John", age: 30)
 jack.sayHello()
 john.sayHello()
+
 /*
  2 - Класс "Машина" и водитель
  Создай класс Car с полями model и owner: Person?.
@@ -38,8 +39,8 @@ john.sayHello()
  */
 
 class Car {
-    var model: String
-    var owner: Person?
+   private var model: String
+   private var owner: Person?
     
     init(model: String) {
         self.model = model
@@ -58,6 +59,7 @@ let ford = Car(model: "Ford")
 
 mazda.assignOwner(person: jack)
 ford.assignOwner(person: john)
+
 
 /*
  3 - Метод, изменяющий состояние
@@ -83,23 +85,30 @@ class Animal {
     init(name: String) {
         self.name = name
     }
-    func makeSound(){
-        
-    }
+    
+    func makeSound(){ }
 }
-
-class Dog: Animal { // В этом классе добалено задание 5
+/*
+ 5 - Расширенный инициализатор
+ Расширенный инициализатор
+ В Dog добавь новое поле breed (порода) и переопредели инициализатор, чтобы он принимал породу.
+ Создай несколько собак с разными породами.
+ */
+class Dog: Animal {
     var breed: String
+    
     init(name: String, breed: String) {
         self.breed = breed
         super.init(name: name)
     }
+    
     override func makeSound() {
         print("\(name) say Woof!")
     }
 }
 
 class Cat: Animal {
+    
     override func makeSound() {
         print("\(name) say Meow!")
     }
@@ -136,19 +145,28 @@ class Store {
     func add (product: Product) {
         catalog.append(product)
     }
+    
     func printCatalog(){
         print("")
-        for product in catalog {
-            print("\(product.name): \(product.price)₽")
+        
+        if catalog.isEmpty {
+            print("Каталог товаров пуст")
+        } else {
+            print("Каталог товаров:")
+            catalog.forEach{ print("\($0.name): \($0.price)₽") }
+//            такой же вывод только без функции высшего порядка
+//            for product in catalog {
+//                print("\(product.name): \(product.price)₽")
+//            }
         }
     }
     
     func sell(productName: String) {
         print("")
-        let item = catalog.firstIndex(where: {$0.name == productName })
-        if let item {
-            let soldProduct = catalog.remove(at: item)
-            print("Продан товар \(soldProduct.name) по цене \(soldProduct.price)")
+//        Так как метод firstIndex возвращает опционал, то можно получить индекс, и сразу извлечь опционал
+        if let index = catalog.firstIndex(where: { $0.name == productName }) {
+            let soldProduct = catalog.remove(at: index)
+            print("Продан товар \(soldProduct.name) по цене \(soldProduct.price)₽")
         } else {
             print("Товар не найден")
         }
